@@ -21,8 +21,8 @@ export const loginUser = (req: Request, res: Response) =>
 export const deleteUser = (req: Request, res: Response) =>
 	removeUser(req.body, (response: unknown) => res.status(200).json({ data: response }));
 
-export const saveAccount = (req: Request, res: Response) =>
-	saveLink(req.body, (response: unknown) => res.status(200).json({ data: response }));
+// export const saveAccount = (req: Request, res: Response) =>
+// 	saveLink(req.body, (response: unknown) => res.status(200).json({ data: response }));
 
 export const transactions = (req: Request, res: Response) =>
 	allAccount(req.body, (response: unknown) => res.status(200).json({ data: response }));
@@ -54,9 +54,21 @@ export const unLinkAccount = (req: Request, res: Response) => {
 	});
 };
 
-export const Auth = (req: Request, res: Response) => {
-	monoPost("https://api.withmono.com/account/auth", req.body, (result: any) => {
+export const Auth = async (req: Request, res: Response) => {
+	await monoPost("https://api.withmono.com/account/auth", req.body, (result: any) => {
+		console.log(req.body);
+		console.log(result);
 		const code = result.statusCode ? +result.statusCode : 200;
+		const id = result.body.id ? result.body.id : "";
+		if (id)
+			return saveLink(
+				{
+					user_id: "1",
+					mono_id: id,
+				},
+				(response: unknown) => res.status(200).json({ data: response })
+			);
+
 		return res.status(code).json(result.body);
 	});
 };
