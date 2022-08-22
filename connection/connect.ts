@@ -1,10 +1,5 @@
 import mysql from "mysql";
+import { databaseConfig } from "../config";
 
-const connection = mysql.createConnection({
-	host: "localhost",
-	user: "root",
-	password: "root",
-	database: "mono_db",
-});
-
+const connection = mysql.createPool(databaseConfig);
 export default connection;

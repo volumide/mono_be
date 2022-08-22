@@ -27,20 +27,17 @@ export const deleteUser = (req: Request, res: Response) =>
 export const transactions = (req: Request, res: Response) =>
 	allAccount(req.body, (response: unknown) => res.status(200).json({ data: response }));
 
-//  code_ywMxfiSsagtfqrHAGUzf
+// working
 export const monoTransaction = (req: Request, res: Response) => {
-	monoGet(
-		"https://api.withmono.com/accounts/62fd4ce79eca36462241f7b1/transactions",
-		(result: any) => {
-			const code = +result.statusCode;
-			return res.status(code).json(JSON.parse(result.body));
-		}
-	);
+	monoGet(`https://api.withmono.com/accounts/${req.body.id}/transactions`, (result: any) => {
+		const code = +result.statusCode;
+		return res.status(code).json(JSON.parse(result.body));
+	});
 };
 
 export const linkedAccounts = (req: Request, res: Response) => {
 	console.log("working");
-	monoGet("https://api.withmono.com/accounts/62fd4ce79eca36462241f7b1", (result: any) => {
+	monoGet(`https://api.withmono.com/accounts/${req.body.id}`, (result: any) => {
 		const code = result.statusCode ? +result.statusCode : 200;
 		return res.status(code).json(JSON.parse(result.body));
 	});
@@ -48,23 +45,24 @@ export const linkedAccounts = (req: Request, res: Response) => {
 
 export const unLinkAccount = (req: Request, res: Response) => {
 	console.log("working");
-	monoGet("https://api.withmono.com/accounts/code_ywMxfiSsagtfqrHAGUzf/unlink", (result: any) => {
+	monoPost(`https://api.withmono.com/accounts/${req.body.id}/unlink`, {}, (result: any) => {
 		const code = +result.statusCode;
 		return res.status(code).json(result.body);
 	});
 };
 
+// working
 export const Auth = async (req: Request, res: Response) => {
 	await monoPost("https://api.withmono.com/account/auth", req.body, (result: any) => {
 		console.log(req.body);
 		console.log(result);
 		const code = result.statusCode ? +result.statusCode : 200;
-		const id = result.body.id ? result.body.id : "";
-		if (id)
+		const accound_id = result.body.id ? result.body.id : "";
+		if (accound_id)
 			return saveLink(
 				{
-					user_id: "1",
-					mono_id: id,
+					user_id: req.query.id.toString(),
+					mono_id: accound_id,
 				},
 				(response: unknown) => res.status(200).json({ data: response })
 			);

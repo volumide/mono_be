@@ -2,12 +2,13 @@ import express, { json } from "express";
 import routes from "./route/route";
 import cors from "cors";
 import connection from "./connection/connect";
+import { port } from "./config";
 
 const app = express();
-const PORT = 4000;
+const PORT = port;
 app.use(json());
 app.use(cors({ origin: "*" }));
-connection.connect(function (err) {
+connection.getConnection(function (err) {
 	if (err) throw err;
 	console.log("Connected!");
 });
