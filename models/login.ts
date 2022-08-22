@@ -7,11 +7,13 @@ const login = (req: Data, callback: CallableFunction) => {
 		if (error) callback(error);
 		// const user: Data = result;
 		if (result) {
-			console.log(result);
 			const check = (await Hash.compare(req.password.toString(), result[0].password))
 				? result[0]
-				: "invalid username or password";
-			return callback(check);
+				: "";
+			return callback({
+				"data": check,
+				"message": check ? "Loginsuccess" : "invalid username or password",
+			});
 		}
 		return callback("Email not registered in out database");
 	});

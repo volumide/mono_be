@@ -16,10 +16,14 @@ export const signUp = (req: Request, res: Response) => {
 };
 
 export const loginUser = (req: Request, res: Response) =>
-	login(req.body, (response: unknown) => res.status(200).json({ data: response }));
+	login(req.body, (response: object) => {
+		console.log(response);
+		if (response["data"]) return res.status(200).json({ data: response });
+		return res.status(403).json(response);
+	});
 
 export const deleteUser = (req: Request, res: Response) =>
-	removeUser(req.body, (response: unknown) => res.status(200).json({ data: response }));
+	removeUser(req.body, (response: unknown) => res.status(403).json({ data: response }));
 
 // export const saveAccount = (req: Request, res: Response) =>
 // 	saveLink(req.body, (response: unknown) => res.status(200).json({ data: response }));
