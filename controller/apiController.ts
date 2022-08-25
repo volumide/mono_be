@@ -32,7 +32,7 @@ export const changePassword = (req: Request, res: Response) =>
 
 export const deleteUser = (req: Request, res: Response) => {
 	const id = req.query.id.toString();
-	removeUser(id, (response: unknown) => res.status(403).json({ data: response }));
+	removeUser(id, (response: unknown) => res.status(204).json({ data: "" }));
 };
 
 // export const saveAccount = (req: Request, res: Response) =>
