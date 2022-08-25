@@ -20,7 +20,7 @@ const routes = (app: Application) => {
 	app.post("/api/login", loginUser);
 
 	// working
-	app.post("/api/update-password", changePassword);
+	app.put("/api/update-password", changePassword);
 
 	// working
 	app.delete("/api/delete-user", deleteUser);

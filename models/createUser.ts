@@ -25,7 +25,7 @@ const createUser = async (req: Data, callback: CallableFunction) => {
 };
 
 export const updateUser = async (req: Data, callback: CallableFunction) => {
-	const sql = `UPDATE customers SET first_name = '${req.first_name}', last_name = '${req.last_name}' WHERE email = '${req.email}'`;
+	const sql = `UPDATE users SET first_name = '${req.first_name}', last_name = '${req.last_name}' WHERE id = '${req.id}'`;
 	connection.query(sql, async (error, result) => {
 		if (error) return callback(error);
 		if (result.affectedRows)
@@ -38,7 +38,7 @@ export const updateUser = async (req: Data, callback: CallableFunction) => {
 
 export const updatePassword = async (req: Data, callback: CallableFunction) => {
 	const password = await hash.hash(req.password.toString(), 10);
-	const sql = `UPDATE customers SET password = '${password}' WHERE email = '${req.email}'`;
+	const sql = `UPDATE users SET password = '${password}' WHERE id = '${req.id}'`;
 	connection.query(sql, async (error, result) => {
 		if (error) return callback(error);
 		if (result.affectedRows)
