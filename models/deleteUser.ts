@@ -1,14 +1,15 @@
 import connection from "../connection/connect";
 
 export interface Data {
-	id: string;
+	id: number;
 }
 
-const removeUser = (req: Data, callback: CallableFunction) => {
-	const sql = `DELETE FROM users WHERE id = ${req.id}`;
+const removeUser = (req: string, callback: CallableFunction) => {
+	const sql = `DELETE FROM users WHERE id = ${req}`;
 	connection.query(sql, (error, result) => {
 		if (error) callback(error);
-		return callback(result.affectedRows);
+		if (result.affectedRows) return callback(result.affectedRows);
+		return callback("Invalid");
 	});
 };
 

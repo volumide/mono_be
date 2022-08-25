@@ -1,24 +1,36 @@
 import { Application } from "express";
 import {
 	Auth,
+	changePassword,
+	deleteUser,
 	linkedAccounts,
 	loginUser,
 	monoTransaction,
 	signUp,
-	transactions,
+	// transactions,
 	unLinkAccount,
+	updateProfile,
 } from "../controller/apiController";
 
 const routes = (app: Application) => {
 	// working
 	app.post("/api/signup", signUp);
+
 	// working
 	app.post("/api/login", loginUser);
 
-	// app.get("/api/get/transaction", transactions);
+	// working
+	app.post("/api/update-password", changePassword);
+
+	// working
+	app.delete("/api/delete-user", deleteUser);
+
+	// working
+	app.put("/api/update-profile", updateProfile);
 
 	// working
 	app.post("/api/mono/transactions", monoTransaction);
+
 	// working
 	app.post("/api/mono/linked", linkedAccounts);
 

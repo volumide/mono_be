@@ -6,13 +6,15 @@ const login = (req: Data, callback: CallableFunction) => {
 	connection.query(sql, async (error, result) => {
 		if (error) callback(error);
 		// const user: Data = result;
-		if (result) {
+		console.log(result);
+		if (result.length) {
 			const check = (await Hash.compare(req.password.toString(), result[0].password))
 				? result[0]
 				: "";
+			delete check["password"];
 			return callback({
-				"data": check,
-				"message": check ? "Loginsuccess" : "invalid username or password",
+				"data": check || "",
+				"message": check ? "Login success" : "invalid username or password",
 			});
 		}
 		return callback("Email not registered in out database");
