@@ -13,34 +13,14 @@ import {
 } from "../controller/apiController";
 
 const routes = (app: Application) => {
-	app.get("/", (req, res) => {
-		res.send("working");
-	});
-	// working
 	app.post("/api/signup", signUp);
-
-	// working
 	app.post("/api/login", loginUser);
-
-	// working
 	app.put("/api/update-password", changePassword);
-
-	// working
 	app.delete("/api/delete-user", deleteUser);
-
-	// working
 	app.put("/api/update-profile", updateProfile);
-
-	// working
 	app.post("/api/mono/transactions", monoTransaction);
-
-	// working
 	app.post("/api/mono/linked", linkedAccounts);
-
-	// working
 	app.post("/api/mono/unlink/account", unLinkAccount);
-
-	// working
 	app.post("/api/mono/auth", Auth);
 };
 
