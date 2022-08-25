@@ -7,7 +7,7 @@
 		"start": "node dist/app.js",
 		"start-dev": "nodemon dist/app.js",
 		"db": "node dist/database/createTable.js",
-		"postinstall": "tsc && npm run db",
+		"postinstall": "tsc",
 		"deploy": "git add . && git commit -m Heroku && git push heroku master"
 	},
 	"keywords": [],
