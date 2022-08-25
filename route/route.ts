@@ -13,6 +13,9 @@ import {
 } from "../controller/apiController";
 
 const routes = (app: Application) => {
+	app.get("/", (req, res) => {
+		res.send("working");
+	});
 	// working
 	app.post("/api/signup", signUp);
 
