@@ -4,9 +4,11 @@
 	"description": "",
 	"main": "dist/app.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "nodemon dist/app.js",
-		"db": "node dist/database/createTable.js"
+		"start": "node dist/app.js",
+		"start-dev": "nodemon dist/app.js",
+		"db": "node dist/database/createTable.js",
+		"postinstall": "tsc && npm run db",
+		"deploy": "git add . && git commit -m Heroku && git push heroku master"
 	},
 	"keywords": [],
 	"author": "",
