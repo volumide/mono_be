@@ -10,4 +10,4 @@ export const databaseConfig = {
 	connectionLimit: 10,
 };
 export const monoSecret = process.env.MONO_SECRET;
-export const port = process.env.PORT;
+export const port = process.env.PORT || 80;
